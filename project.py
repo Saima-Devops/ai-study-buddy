@@ -42,6 +42,14 @@ def clean_pdf_text(text: str) -> str:
     return re.sub(r"[*_`]", "", text)
 
 
+def clean_ai_output(text: str) -> str:
+    text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
+    text = re.sub(r"(?m)^\s*#{1,6}\s*", "", text)
+    text = re.sub(r"(?m)^\s*[-*+]\s+", "- ", text)
+    text = re.sub(r"[*_`~]", "", text)
+    return re.sub(r"\n{3,}", "\n\n", text).strip()
+
+
 def save_chat_response_as_pdf(text: str):
     pdf = FPDF()
     pdf.add_page()
@@ -136,9 +144,10 @@ def render_assistant_message(text: str, copy_button_id: str | None = None):
     avatar_column, content_column = st.columns([1, 11], vertical_alignment="top")
     render_robot_avatar(avatar_column)
     with content_column:
-        st.markdown(f"**Study Buddy says:** {text}")
+        display_text = clean_ai_output(text)
+        st.markdown(f"**Study Buddy says:**\n\n{display_text}")
         if copy_button_id:
-            render_copy_button(text, copy_button_id)
+            render_copy_button(display_text, copy_button_id)
             st.download_button(
                 "Download response",
                 save_chat_response_as_pdf(text),
@@ -421,12 +430,13 @@ def main():
                     "Use plain text with no Markdown formatting.\n\n" + text
                 )
                 summary = limit_summary(summary)
+                clean_summary = clean_ai_output(summary)
 
-                st.markdown(summary)
+                st.markdown(clean_summary)
 
                 st.download_button(
                     "💾 Download Summary PDF",
-                    save_text_as_pdf(summary),
+                    save_chat_response_as_pdf(summary),
                     "summary.pdf"
                 )
 
@@ -434,7 +444,18 @@ def main():
     elif page == "🎯 Quiz Me":
         st.title("🎯 Quiz Generator")
 
-        notes = st.text_area("Paste notes here:", height=300)
+        quiz_file = st.file_uploader("Upload PDF or TXT notes", type=["pdf", "txt"], key="quiz_file")
+        pasted_notes = st.text_area("Paste notes here:", height=300)
+
+        if quiz_file:
+            if quiz_file.type == "application/pdf":
+                quiz_file.seek(0)
+                notes = clean_text(read_pdf(quiz_file))
+            else:
+                notes = clean_text(quiz_file.getvalue().decode(errors="replace"))
+            st.text_area("Uploaded Notes", notes, height=220, disabled=True)
+        else:
+            notes = pasted_notes
 
         if st.button("Generate Quiz") and notes:
 

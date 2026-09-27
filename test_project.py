@@ -1,4 +1,4 @@
-from project import clean_text, normalize_answer, calculate_score, extract_json
+from project import clean_ai_output, clean_text, normalize_answer, calculate_score, extract_json
 import pytest
 import warnings
 warnings.filterwarnings("ignore")  # Ignore warnings during tests
@@ -16,6 +16,12 @@ warnings.filterwarnings("ignore")  # Ignore warnings during tests
 ])
 def test_clean_text(input_text, expected):
     assert clean_text(input_text) == expected
+
+
+def test_clean_ai_output_removes_markdown_markers():
+    output = clean_ai_output("# Topic\n**Important**\n* First point\n[Reference](https://example.com)")
+
+    assert output == "Topic\nImportant\n- First point\nReference"
 
 
 # -------------------------------
