@@ -1,0 +1,123 @@
+# ==============================
+# Python
+# ==============================
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python build / distribution
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# ==============================
+# Virtual Environments
+# ==============================
+
+# Common virtual environment names
+venv/
+.venv/
+env/
+.env/
+ENV/
+env.bak/
+venv.bak/
+
+# Any Python virtual environment
+**/venv/
+**/.venv/
+**/env/
+**/.env/
+
+# ==============================
+# Environment Variables / Secrets
+# ==============================
+
+# IMPORTANT: API keys, tokens, passwords
+.env
+.env.*
+!.env.example
+
+# Local secrets/config files
+secrets/
+*.secret
+*.secrets
+secrets.toml
+
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# ==============================
+# Streamlit
+# ==============================
+
+.streamlit/cache/
+.streamlit/*.log
+
+# ==============================
+# Jupyter
+# ==============================
+
+.ipynb_checkpoints/
+
+# ==============================
+# IDE / Editors
+# ==============================
+
+# VS Code
+.vscode/
+
+# PyCharm / IntelliJ
+.idea/
+
+# ==============================
+# OS Files
+# ==============================
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# Linux
+*~
+
+# ==============================
+# Logs
+# ==============================
+
+*.log
+logs/
+
+# ==============================
+# Temporary files
+# ==============================
+
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+
+# ==============================
+# Local data
+# ==============================
+
+# Uncomment if your app generates local data
+data/
+uploads/
+outputs/
