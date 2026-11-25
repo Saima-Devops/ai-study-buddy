@@ -1,8 +1,13 @@
 # Final Project by Saima Usman
 # 🤖 AI Study Buddy - Your Smart Study Partner
+
 #### Video Demo: https://youtu.be/hLJ6vtoMfrs
 
-#### Description:
+#### Live Demo: https://ai-study-buddy-new.streamlit.app
+
+---
+
+## Description:
 AI Study Buddy is your smart virtual study companion powered by OpenAI.
 It helps you **chat**, **summarize notes**, and **generate quizzes** — all in one place.
 
@@ -40,7 +45,7 @@ pytest test_project.py -p no:warnings
 ## 🧩 Tech Stack
 
 - **Frontend/UI**: [Streamlit](https://streamlit.io/)
-- **AI Backend**: OpenAI (`gpt-4o-mini` by default)
+- **AI Backend**: OpenAI (`gpt-4o-mini` default model)
 - **PDF Processing**: PyPDF2
 - **Language**: Python 3.10+
 - **Testing Framework**: pytest
@@ -101,7 +106,7 @@ Run: pytest -v
 
 All tests in test_project.py should pass successfully.
 
-Thank you!
+---
 
-by Saima Usman
+by **Saima Usman** \
 Final Project:**CS50’s Introduction to Programming with Python by Harvard University**
