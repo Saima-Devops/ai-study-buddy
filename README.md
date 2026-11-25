@@ -3,7 +3,7 @@
 
 #### Video Demo: https://youtu.be/hLJ6vtoMfrs
 
-#### Live Demo: https://ai-study-buddy-new.streamlit.app
+#### Live Demo: https://ai-study-buddy.streamlit.app
 
 ---
 
