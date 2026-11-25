@@ -33,6 +33,7 @@ jobs:
       - uses: actions/checkout@v6
         with:
           ref: ${{ github.sha }}
+          fetch-depth: 0
       - name: Publish tested commit to Streamlit branch
         run: |
           main_sha=$(git ls-remote --exit-code origin refs/heads/main | cut -f1)
