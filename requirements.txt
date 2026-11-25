@@ -1,8 +1,6 @@
 # Core dependencies
 streamlit
-google-genai
 PyPDF2
 fpdf2
-requests
 openai
 pytest

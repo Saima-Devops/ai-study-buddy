@@ -3,10 +3,10 @@
 #### Video Demo: https://youtu.be/hLJ6vtoMfrs
 
 #### Description:
-AI Study Buddy is your smart virtual study companion powered by Google Gemini. 
+AI Study Buddy is your smart virtual study companion powered by OpenAI.
 It helps you **chat**, **summarize notes**, and **generate quizzes** — all in one place.
 
-AI Study Buddy is an intelligent, interactive Streamlit application designed to help students and lifelong learners study more effectively using the power of artificial intelligence. By integrating Google’s Gemini API, the app assists users in chatting about study topics, summarizing notes, and generating customized multiple-choice quizzes — all in one intuitive interface. It acts as a virtual study companion that enhances comprehension, retention, and active recall through AI-powered interactions.
+AI Study Buddy is a Streamlit application for chatting about study topics, summarizing notes, and generating customized multiple-choice quizzes.
 
 ---
 
@@ -14,17 +14,17 @@ AI Study Buddy is an intelligent, interactive Streamlit application designed to 
 
 The AI Study Buddy is built with Python and Streamlit, offering a seamless web interface that does not require any technical setup from end users. Users can chat directly with an AI model to ask questions, summarize their uploaded notes (PDF or text), or test their understanding through automatically generated quizzes. The app is designed for accessibility, simplicity, and performance, ensuring a productive and engaging learning experience.
 
-This project demonstrates the integration of frontend interactivity (Streamlit) with AI backend processing (Gemini API) and document parsing (PyPDF2). It showcases how artificial intelligence can be embedded into education tools to make studying smarter, faster, and more enjoyable.
+This project combines Streamlit, the OpenAI API, and PDF parsing with PyPDF2.
 
 ---
 
-## ⚙️ Features - Built with Streamlit + Gemini AI
+## ⚙️ Features
 
 ### 💬 Chat with AI
 Ask the AI assistant any study-related question and receive structured, well-formatted answers with headings, bullet points, and explanations. Perfect for clarifying concepts and understanding complex topics.
 
 ### 🧾 Summarize Notes
-Upload your lecture notes or textbooks in PDF or TXT format, and the app automatically extracts and summarizes key information concisely. The text is cleaned, processed, and summarized by the Gemini model for quick review.
+Upload your lecture notes or textbooks in PDF or TXT format, and the app extracts and summarizes key information for quick review.
 
 ### 🎯 Quiz Me
 Generate quizzes instantly from your notes or on any given topic. The AI creates five multiple-choice questions (A–D options), and once you answer, it checks your responses, calculates your score, and highlights correct and incorrect answers. This feature promotes active recall and self-assessment.
@@ -40,7 +40,7 @@ pytest test_project.py -p no:warnings
 ## 🧩 Tech Stack
 
 - **Frontend/UI**: [Streamlit](https://streamlit.io/)
-- **AI Backend**: Google Gemini API (`google.genai`) - ***model="gemini-2.5-flash"***
+- **AI Backend**: OpenAI (`gpt-4o-mini` by default)
 - **PDF Processing**: PyPDF2
 - **Language**: Python 3.10+
 - **Testing Framework**: pytest
@@ -71,11 +71,13 @@ macOS/Linux: source venv/bin/activate
 Install all the required Python packages using:
 pip install -r requirements.txt
 
-4️⃣ **Configure your Gemini API Key**
-Inside your project directory, create a folder named .streamlit.
-Inside .streamlit, create a file named secrets.toml.
-Add your Google Gemini API key like this: 
-GEMINI_API_KEY = "your_api_key_here"
+4️⃣ **Configure your API key**
+Add the following to your local `.streamlit/secrets.toml` or to your deployed app's Streamlit Secrets. Keep the secrets file out of GitHub.
+
+```toml
+OPENAI_API_KEY = "your_openai_api_key"
+# OPENAI_MODEL = "gpt-4o-mini"
+```
 
 5️⃣ **Run the Streamlit App**
 Once everything is set up, start the app with:

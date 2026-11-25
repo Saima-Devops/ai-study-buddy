@@ -7,7 +7,6 @@ import time
 from pathlib import Path
 from fpdf import FPDF
 from fpdf.enums import WrapMode, XPos, YPos
-import requests
 
 # -------------------------------
 # Helper Functions (UNCHANGED)
@@ -292,64 +291,24 @@ def extract_json(text):
 def call_ai(prompt: str) -> str:
     errors = []
 
-    # ---------------- GEMINI ----------------
-    api_key = st.secrets.get("GEMINI_API_KEY", "")
-    if api_key:
-        try:
-            from google import genai
-
-            client = genai.Client(api_key=api_key)
-            response = client.models.generate_content(
-                model=st.secrets.get("GEMINI_MODEL", "gemini-2.5-flash"),
-                contents=prompt
-            )
-            if response.text:
-                return response.text
-            errors.append("Gemini returned an empty response")
-        except Exception as error:
-            errors.append(f"Gemini failed ({type(error).__name__})")
-    else:
-        errors.append("Gemini API key is not configured")
-
-    # ---------------- DEEPSEEK ----------------
-    deepseek_key = st.secrets.get("DEEPSEEK_API_KEY", "")
-    if deepseek_key:
-        try:
-            import openai
-
-            client = openai.OpenAI(
-                api_key=deepseek_key,
-                base_url="https://api.deepseek.com",
-            )
-            response = client.chat.completions.create(
-                model=st.secrets.get("DEEPSEEK_MODEL", "deepseek-flash"),
-                messages=[{"role": "user", "content": prompt}],
-            )
-
-            if response.choices and response.choices[0].message.content:
-                return response.choices[0].message.content
-            errors.append("DeepSeek returned an empty response")
-        except Exception as error:
-            errors.append(f"DeepSeek failed ({type(error).__name__})")
-
-    # ---------------- OPENAI (OPTIONAL) ----------------
+    # ---------------- OPENAI ----------------
     api_key = st.secrets.get("OPENAI_API_KEY", "")
     if api_key:
         try:
             import openai
 
             client = openai.OpenAI(api_key=api_key)
-
-            res = client.chat.completions.create(
+            response = client.chat.completions.create(
                 model=st.secrets.get("OPENAI_MODEL", "gpt-4o-mini"),
-                messages=[{"role": "user", "content": prompt}]
+                messages=[{"role": "user", "content": prompt}],
             )
-
-            if res.choices and res.choices[0].message.content:
-                return res.choices[0].message.content
+            if response.choices and response.choices[0].message.content:
+                return response.choices[0].message.content
             errors.append("OpenAI returned an empty response")
         except Exception as error:
             errors.append(f"OpenAI failed ({type(error).__name__})")
+    else:
+        errors.append("OpenAI API key is not configured")
 
     return "⚠️ No AI service could complete this request. " + " ".join(errors)
 
